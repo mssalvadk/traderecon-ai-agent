@@ -1,0 +1,69 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# TradeRecon AI Agent — Main Settings
+# ══════════════════════════════════════════════════════════════════════════════
+
+pipeline:
+  name: "TradeRecon AI Agent"
+  version: "0.1.0"
+  run_date_format: "%Y-%m-%d"
+  timezone: "UTC"
+
+# ── Scheduler ─────────────────────────────────────────────────────────────────
+scheduler:
+  enabled: true
+  # Cron expression — default: 18:00 UTC Monday–Friday
+  cron:
+    hour: 18
+    minute: 0
+    day_of_week: "mon-fri"
+
+# ── Data Sources ──────────────────────────────────────────────────────────────
+data_sources:
+  source_a:
+    name: "Internal Trade Blotter"
+    path: "data/samples/source_a_trades.csv"
+    type: "csv"
+    encoding: "utf-8"
+    date_format: "%Y-%m-%d"
+
+  source_b:
+    name: "Counterparty / Custodian Feed"
+    path: "data/samples/source_b_trades.csv"
+    type: "csv"
+    encoding: "utf-8"
+    date_format: "%Y-%m-%d"
+
+  reference_data:
+    name: "Security Master"
+    path: "data/samples/reference_data.csv"
+    type: "csv"
+
+# ── Database ──────────────────────────────────────────────────────────────────
+database:
+  path: "db/traderecon.db"
+  audit_table: "audit_log"
+  pipeline_runs_table: "pipeline_runs"
+  breaks_table: "breaks"
+
+# ── Reports ───────────────────────────────────────────────────────────────────
+reports:
+  output_dir: "reports/output"
+  excel_template: "reports/templates/report_template.xlsx"
+  email_template: "reports/templates/email_template.html"
+  filename_format: "TradeRecon_EOD_{date}.xlsx"
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+logging:
+  level: "INFO"           # DEBUG | INFO | WARNING | ERROR
+  format: "json"          # json | text
+  output: "both"          # console | file | both
+  log_dir: "logs"
+  filename_format: "traderecon_{date}.log"
+
+# ── Claude AI ─────────────────────────────────────────────────────────────────
+claude:
+  max_tokens: 1024
+  max_retries: 3
+  retry_delay_seconds: 2
+  batch_size: 10           # Number of breaks per Claude API batch call
+  temperature: 0           # 0 = deterministic, consistent explanations

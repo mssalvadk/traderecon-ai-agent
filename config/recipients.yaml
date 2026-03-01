@@ -1,0 +1,40 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# TradeRecon AI Agent — Email Recipients Configuration
+# ══════════════════════════════════════════════════════════════════════════════
+# Role-based routing: the right report goes to the right people.
+# EmailDispatchAgent reads this file — no code changes needed to add recipients.
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── Standard EOD Report Recipients ───────────────────────────────────────────
+standard:
+  - name: "Operations Team"
+    email: "ops-team@example.com"
+    role: "operations"
+    receives: ["all_breaks", "summary"]
+
+  - name: "Trade Support"
+    email: "trade-support@example.com"
+    role: "trade_support"
+    receives: ["all_breaks", "summary"]
+
+# ── Escalation Recipients (Critical breaks + threshold breaches) ──────────────
+escalation:
+  - name: "Senior Operations Manager"
+    email: "senior-ops@example.com"
+    role: "senior_ops"
+    receives: ["critical_breaks", "summary", "full_report"]
+
+  - name: "Compliance"
+    email: "compliance@example.com"
+    role: "compliance"
+    receives: ["summary", "critical_breaks"]
+
+# ── Development / Testing Override ───────────────────────────────────────────
+# When EMAIL_DRY_RUN=true, all emails are logged to console instead of sent.
+# When ENVIRONMENT=development, override all recipients with dev_override below.
+dev_override:
+  enabled: true    # Set to false in production
+  - name: "Developer"
+    email: "your_dev_email@gmail.com"
+    role: "developer"
+    receives: ["all_breaks", "summary", "full_report"]

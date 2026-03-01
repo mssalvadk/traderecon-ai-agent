@@ -1,0 +1,61 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# TradeRecon AI Agent — Break Tolerance Configuration
+# ══════════════════════════════════════════════════════════════════════════════
+# Tolerances define what constitutes a "break" vs an acceptable difference.
+# These are the thresholds the ReconciliationAgent uses when matching trades.
+#
+# Design principle: Config-driven, not hardcoded.
+# Change thresholds here without touching agent code.
+# ══════════════════════════════════════════════════════════════════════════════
+
+defaults:
+  # Quantity must match exactly (0 tolerance) unless overridden below
+  quantity_tolerance: 0
+
+  # Price difference allowed (in currency units, e.g. USD)
+  # 0.01 = 1 cent tolerance
+  price_tolerance: 0.01
+
+  # Consideration (quantity × price) tolerance in currency units
+  consideration_tolerance: 1.00
+
+  # Settlement date tolerance in calendar days (0 = exact match required)
+  settlement_date_tolerance_days: 0
+
+  # Side (Buy/Sell) must always match exactly — no tolerance ever
+  side_tolerance: 0
+
+# ── Asset Class Overrides ─────────────────────────────────────────────────────
+# Override defaults per asset class if needed in future phases
+asset_classes:
+  equities:
+    quantity_tolerance: 0
+    price_tolerance: 0.01
+    consideration_tolerance: 1.00
+    settlement_date_tolerance_days: 0
+
+  etf:
+    quantity_tolerance: 0
+    price_tolerance: 0.01
+    consideration_tolerance: 1.00
+    settlement_date_tolerance_days: 0
+
+# ── Break Severity Rules ──────────────────────────────────────────────────────
+severity:
+  SIDE_BREAK:    "CRITICAL"
+  MISSING:       "HIGH"
+  DUPLICATE:     "HIGH"
+  QTY_BREAK:     "HIGH"
+  PRICE_BREAK:   "MEDIUM"
+  SETTLE_BREAK:  "MEDIUM"
+
+# ── Escalation Thresholds ─────────────────────────────────────────────────────
+escalation:
+  # Escalate to senior ops if break count exceeds this number
+  break_count_threshold: 10
+
+  # Escalate if total consideration at risk exceeds this amount (USD)
+  consideration_threshold: 100000.00
+
+  # Always escalate if any CRITICAL breaks found
+  always_escalate_critical: true
