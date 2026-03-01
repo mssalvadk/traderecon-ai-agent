@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TradeRecord",
+  "description": "Canonical trade data contract — all sources normalised to this schema",
+  "type": "object",
+  "required": [
+    "trade_id",
+    "trade_date",
+    "settlement_date",
+    "ticker",
+    "isin",
+    "side",
+    "quantity",
+    "price",
+    "consideration",
+    "counterparty",
+    "broker",
+    "status"
+  ],
+  "properties": {
+    "trade_id": {
+      "type": "string",
+      "description": "Unique trade identifier",
+      "minLength": 1
+    },
+    "trade_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Trade execution date (YYYY-MM-DD)"
+    },
+    "settlement_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Settlement date, typically T+2 (YYYY-MM-DD)"
+    },
+    "ticker": {
+      "type": "string",
+      "description": "Exchange ticker symbol (e.g. AAPL)"
+    },
+    "isin": {
+      "type": "string",
+      "description": "International Securities Identification Number",
+      "pattern": "^[A-Z]{2}[A-Z0-9]{10}$"
+    },
+    "side": {
+      "type": "string",
+      "enum": ["BUY", "SELL"],
+      "description": "Trade direction"
+    },
+    "quantity": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Number of shares / units"
+    },
+    "price": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Execution price per share"
+    },
+    "consideration": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total value = quantity × price"
+    },
+    "counterparty": {
+      "type": "string",
+      "description": "Counterparty identifier"
+    },
+    "broker": {
+      "type": "string",
+      "description": "Executing broker identifier"
+    },
+    "trader_id": {
+      "type": "string",
+      "description": "Trader identifier (optional)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["CONFIRMED", "PENDING", "CANCELLED", "FAILED"],
+      "description": "Trade status"
+    }
+  },
+  "additionalProperties": false
+}
