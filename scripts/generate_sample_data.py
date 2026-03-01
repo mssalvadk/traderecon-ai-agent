@@ -1,6 +1,6 @@
 """
 scripts/generate_sample_data.py
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 Generates realistic sample equities trade data for development and testing.
 
 Creates two CSV files simulating:
@@ -14,7 +14,7 @@ Usage:
     python scripts/generate_sample_data.py
     python scripts/generate_sample_data.py --trade-date 2024-01-15
     python scripts/generate_sample_data.py --num-trades 100
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 """
 
 import argparse
@@ -123,7 +123,7 @@ def write_csv(path: Path, trades: list[dict]) -> None:
         writer = csv.DictWriter(f, fieldnames=TRADE_FIELDS)
         writer.writeheader()
         writer.writerows(trades)
-    print(f"  ✓ Written {len(trades)} trades → {path}")
+    print(f"  [OK] Written {len(trades)} trades -> {path}")
 
 
 # ── Main Generator ────────────────────────────────────────────────────────────
@@ -287,16 +287,16 @@ def generate(trade_date: datetime, num_trades: int = 50) -> None:
         writer = csv.DictWriter(f, fieldnames=["ticker", "isin", "name", "asset_class", "currency"])
         writer.writeheader()
         writer.writerows(ref_data)
-    print(f"  ✓ Written {len(ref_data)} securities → {ref_path}")
+    print(f"  [OK] Written {len(ref_data)} securities -> {ref_path}")
 
     # ── Summary ───────────────────────────────────────────────────────────────
     print()
-    print("═" * 60)
+    print("=" * 60)
     print(f"  Trade Date  : {trade_date.strftime('%Y-%m-%d')}")
     print(f"  Source A    : {len(source_a)} trades")
     print(f"  Source B    : {len(source_b)} trades")
     print(f"  Expected    : ~{int(num_trades * 0.30)} breaks across 6 break types")
-    print("═" * 60)
+    print("=" * 60)
     print()
     print("  Next step:")
     print("    python scripts/setup_db.py")

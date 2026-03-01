@@ -67,7 +67,7 @@ class TestConfigFiles:
     def test_settings_yaml_valid(self):
         path = PROJECT_ROOT / "config" / "settings.yaml"
         assert path.exists(), "settings.yaml not found"
-        data = yaml.safe_load(path.read_text())
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
         assert "pipeline" in data
         assert "scheduler" in data
         assert "data_sources" in data
@@ -76,14 +76,14 @@ class TestConfigFiles:
     def test_tolerance_yaml_valid(self):
         path = PROJECT_ROOT / "config" / "tolerance.yaml"
         assert path.exists(), "tolerance.yaml not found"
-        data = yaml.safe_load(path.read_text())
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
         assert "defaults" in data
         assert "severity" in data
         assert "escalation" in data
 
     def test_tolerance_has_all_break_types(self):
         path = PROJECT_ROOT / "config" / "tolerance.yaml"
-        data = yaml.safe_load(path.read_text())
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
         severity = data["severity"]
         required_breaks = {"SIDE_BREAK", "MISSING", "DUPLICATE", "QTY_BREAK", "PRICE_BREAK", "SETTLE_BREAK"}
         assert required_breaks.issubset(set(severity.keys()))
@@ -95,14 +95,14 @@ class TestSchema:
     def test_trade_schema_valid_json(self):
         path = PROJECT_ROOT / "data" / "schemas" / "trade_schema.json"
         assert path.exists(), "trade_schema.json not found"
-        data = json.loads(path.read_text())
+        data = json.loads(path.read_text(encoding="utf-8"))
         assert data["type"] == "object"
         assert "properties" in data
         assert "required" in data
 
     def test_trade_schema_has_required_fields(self):
         path = PROJECT_ROOT / "data" / "schemas" / "trade_schema.json"
-        data = json.loads(path.read_text())
+        data = json.loads(path.read_text(encoding="utf-8"))
         required = set(data["required"])
         expected = {"trade_id", "trade_date", "settlement_date", "ticker",
                     "isin", "side", "quantity", "price", "consideration"}
@@ -116,7 +116,7 @@ class TestSqliteSchema:
         assert (PROJECT_ROOT / "db" / "schema.sql").exists()
 
     def test_schema_creates_tables(self, tmp_path):
-        schema = (PROJECT_ROOT / "db" / "schema.sql").read_text()
+        schema = (PROJECT_ROOT / "db" / "schema.sql").read_text(encoding="utf-8")
         db_path = tmp_path / "test.db"
         conn = sqlite3.connect(db_path)
         conn.executescript(schema)
@@ -149,7 +149,7 @@ class TestSampleDataGenerator:
     def test_source_a_created(self):
         path = PROJECT_ROOT / "data" / "samples" / "source_a_trades.csv"
         assert path.exists(), "source_a_trades.csv was not created"
-        lines = path.read_text().splitlines()
+        lines = path.read_text(encoding="utf-8").splitlines()
         assert len(lines) > 1, "source_a_trades.csv is empty"
 
     def test_source_b_created(self):
