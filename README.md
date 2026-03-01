@@ -7,7 +7,7 @@
 [![Anthropic Claude](https://img.shields.io/badge/AI-Anthropic%20Claude-green.svg)](https://anthropic.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-orange.svg)](https://github.com/astral-sh/ruff)
-
+[![Tests](https://github.com/mssalvadk/traderecon-ai-agent/actions/workflows/tests.yml/badge.svg)](https://github.com/mssalvadk/traderecon-ai-agent/actions/workflows/tests.yml)git
 ---
 
 ## What This Does
