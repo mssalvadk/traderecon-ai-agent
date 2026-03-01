@@ -1,0 +1,68 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.pyo
+
+# ── Virtual Environments ──────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
+# ── Environment & Secrets (NEVER COMMIT) ─────────────────────────────────────
+.env
+*.env
+.env.local
+.env.production
+
+# ── Database (auto-generated) ─────────────────────────────────────────────────
+db/*.db
+db/*.sqlite
+db/*.sqlite3
+
+# ── Generated Reports (output only, not source) ───────────────────────────────
+reports/output/
+*.xlsx
+!reports/templates/*.xlsx
+
+# ── VS Code ───────────────────────────────────────────────────────────────────
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# ── Testing & Coverage ────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.coveragerc
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+logs/
+*.log
+*.log.*
+
+# ── OS Files ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Data Files (samples committed, real data never) ───────────────────────────
+data/live/
+data/raw/
+!data/samples/
+!data/schemas/
+
+# ── Jupyter (if used for exploration) ────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── Ruff / Black cache ────────────────────────────────────────────────────────
+.ruff_cache/
