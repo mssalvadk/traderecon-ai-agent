@@ -31,6 +31,7 @@ db/*.sqlite3
 reports/output/
 *.xlsx
 !reports/templates/*.xlsx
+!reports/output/.gitkeep
 
 # ── VS Code ───────────────────────────────────────────────────────────────────
 .vscode/
